@@ -1,0 +1,2 @@
+-keep class android.support.v8.renderscript.** { *; }
+-keep class androidx.renderscript.** { *; }

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:clipToPadding="false"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <net.center.blurview.ShapeBlurView
+                android:id="@+id/blurview"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <net.center.blurview.ShapeBlurView
+                android:id="@+id/blurview1"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                app:blur_border_width="2dp"
+                app:blur_mode="circle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/blurview" />
+
+
+            <net.center.blurview.ShapeBlurView
+                android:id="@+id/blurview2"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                app:blur_border_color="@color/purple_500"
+                app:blur_border_width="1dp"
+                app:blur_mode="oval"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/blurview1" />
+
+
+            <net.center.blurview.ShapeBlurView
+                android:id="@+id/blurview3"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                app:blur_border_color="@color/purple_200"
+                app:blur_border_width="3dp"
+                app:blur_radius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/blurview2" />
+
+            <net.center.blurview.ShapeBlurView
+                android:id="@+id/blurview4"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                app:blur_border_color="@color/teal_700"
+                app:blur_border_width="1dp"
+                app:blur_corner_radius="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/blurview3" />
+
+
+            <net.center.blurview.ShapeBlurView
+                android:id="@+id/blurview5"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"
+                app:blur_border_color="@color/teal_700"
+                app:blur_border_width="1dp"
+                app:blur_corner_radius_bottom_right="50dp"
+                app:blur_corner_radius_top_left="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/blurview4" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
