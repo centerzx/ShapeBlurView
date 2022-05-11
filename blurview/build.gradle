@@ -1,6 +1,48 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+
+    id 'maven-publish'//用来推送aar到jitpack
+    id 'pl.allegro.tech.build.axion-release' version '1.13.6'//用来发行aar版本的插件
+}
+
+def properties = new Properties()
+properties.load(rootProject.file("local.properties").newInputStream())
+def gitUser = properties.getProperty("gitUser")
+def gitPassWord = properties.getProperty("gitPassWord")
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.centerzx'//插件id，格式：com.gitee/github.用户名
+                artifactId = 'ShapeBlurView'//插件名称
+                version = '1.0.0'//版本号
+                //引用使用格式：implementation 'com.github.centerzx:ShapeBlurView:1.0.0'
+            }
+        }
+        //jitpack推送授权
+        repositories {
+            maven {
+                name('jitpack')
+                url "https://jitpack.io"
+                credentials {
+                    username gitUser
+                    password gitPassWord
+                }
+            }
+        }
+
+    }
+}
+
+//release插件，https授权
+scmVersion{
+    repository{
+        customUsername = gitUser
+        customPassword = gitPassWord
+    }
 }
 
 android {
