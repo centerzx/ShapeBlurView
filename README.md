@@ -93,7 +93,13 @@ blur_mode:样式，rectangle：矩形；circle：圆形；oval：椭圆
 调用类方法refreshView，使用简洁build模式进行值设置，最终只调用一次invalidate()
 这样避免传统的setXXX方法里面设置一个值就去调用invalidate()进行重绘
 
-### (4)项目开源地址
+###(4)混淆
+```
+-keep class android.support.v8.renderscript.** { *; }
+-keep class androidx.renderscript.** { *; }
+```
+
+### (5)项目开源地址
 
 >[GitHub地址](https://github.com/centerzx/ShapeBlurView)
 
