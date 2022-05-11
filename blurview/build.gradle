@@ -6,6 +6,7 @@ plugins {
     id 'pl.allegro.tech.build.axion-release' version '1.13.6'//用来发行aar版本的插件
 }
 
+//https://blog.csdn.net/java04/article/details/123574708
 def properties = new Properties()
 properties.load(rootProject.file("local.properties").newInputStream())
 def gitUser = properties.getProperty("gitUser")
