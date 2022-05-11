@@ -1,5 +1,7 @@
 # ShapeBlurView
 `ShapeBlurView`库是一个高斯模糊（毛玻璃效果）蒙层库。
+[简书地址](https://www.jianshu.com/p/442759a3ccf1) https://www.jianshu.com/p/442759a3ccf1
+
 不知大家做需求的时候是否有这样的效果要求：
 ![需求示例](https://upload-images.jianshu.io/upload_images/2454085-f67a444e096a7bd5.png?imageMogr2/auto-orient/strip|imageView2/2/w/184/format/webp)
 
@@ -9,8 +11,8 @@
 先看看效果：
 
 
-[效果示例](https://upload-images.jianshu.io/upload_images/2454085-0866a420a087a381.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/1080/format/webp)
-[效果示例](https://upload-images.jianshu.io/upload_images/2454085-a0be1e80a147c100.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/1080/format/webp)
+[![效果示例](https://s1.ax1x.com/2022/05/11/Oa02Xd.jpg)](https://imgtu.com/i/Oa02Xd)
+[![效果示例](https://s1.ax1x.com/2022/05/11/Oa0WnA.jpg)](https://imgtu.com/i/Oa0WnA)
 
 [comment]: <> (![效果示例]&#40;sample1.jpg&#41;![效果示例]&#40;sample2.jpg&#41;)
 
