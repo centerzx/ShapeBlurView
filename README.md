@@ -11,19 +11,24 @@
 ![效果示例](sample1.jpg)![效果示例](sample2.jpg)
 
 网上有其他大神开源的库，但都有些美中不足。
+
 **此`ShapeBlurView`库支持矩形、圆形、椭圆；边框、边框自定义颜色、自定义边框粗细；矩形时支持切圆角
 并且可以支持对4个角分别切圆角。**
 
 ------
 ## 使用步骤
 1、在添加maven地址的地方添加：
->repositories {
+```
+    repositories {
         maven { url 'https://jitpack.io' }
     }
+```
 
 2、在需要使用的gradle文件添加依赖：
-```implementation 'com.github.centerzx:ShapeBlurView:1.0.0'```
-```implementation 'androidx.appcompat:appcompat:***'```
+```
+implementation 'com.github.centerzx:ShapeBlurView:1.0.0'
+implementation 'androidx.appcompat:appcompat:***'
+```
 
 appcompat:***根据你自己的版本添加
 
@@ -58,13 +63,15 @@ appcompat:***根据你自己的版本添加
         </attr>
 ```
 
->blur_radius:高斯模糊半径，值越大越模糊，0<r<=25
+```
+blur_radius:高斯模糊半径，值越大越模糊，0<r<=25
 blur_down_sample:采样参数
 blur_overlay_color:毛玻璃覆盖颜色
 blur_corner_radius:矩形时圆角半径（4个角一样），其他几个corner属性大家应该能看懂
 blur_border_width:边框线条宽度
 blur_border_color:边框线条颜色
 blur_mode:样式，rectangle：矩形；circle：圆形；oval：椭圆
+```
 
 ### (3)代码中对熟悉进行设置
 
