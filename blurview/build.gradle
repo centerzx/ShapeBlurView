@@ -11,6 +11,7 @@ properties.load(rootProject.file("local.properties").newInputStream())
 def gitUser = properties.getProperty("gitUser")
 def gitPassWord = properties.getProperty("gitPassWord")
 println 'gitUser=' + gitUser+"gitPassWord="+gitPassWord
+
 afterEvaluate {
     publishing {
         publications {
