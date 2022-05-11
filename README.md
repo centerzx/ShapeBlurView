@@ -1,14 +1,18 @@
 # ShapeBlurView
 `ShapeBlurView`库是一个高斯模糊（毛玻璃效果）蒙层库。
 不知大家做需求的时候是否有这样的效果要求：
-![需求示例](sample.png)
+[![需求示例](https://s1.ax1x.com/2022/05/11/Oa0g6H.png)](https://imgtu.com/i/Oa0g6H)
 
 大家熟悉的Android常用图片加载库，比如Glide 可以对图片进行毛玻璃效果的加载（实现不展开说了）
 但是都是对整个要加载的图片进行高斯模糊效果，对应局部这种比较难处理，这个库就能实现这样的效果。
 当然，你对整个图片盖一层，也能达到Glide高斯模糊加载的效果。
 先看看效果：
 
-![效果示例](sample1.jpg)![效果示例](sample2.jpg)
+
+[![效果示例](https://s1.ax1x.com/2022/05/11/Oa02Xd.jpg)](https://imgtu.com/i/Oa02Xd)
+[![效果示例](https://s1.ax1x.com/2022/05/11/Oa0WnA.jpg)](https://imgtu.com/i/Oa0WnA)
+
+[comment]: <> (![效果示例]&#40;sample1.jpg&#41;![效果示例]&#40;sample2.jpg&#41;)
 
 网上有其他大神开源的库，但都有些美中不足。
 
