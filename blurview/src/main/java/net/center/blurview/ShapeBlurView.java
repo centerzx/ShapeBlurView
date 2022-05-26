@@ -97,7 +97,8 @@ public class ShapeBlurView extends View {
     private final Paint mBorderPaint;
     private float mBorderWidth = 0;
     private ColorStateList mBorderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
-
+    private Matrix matrix;
+    private BitmapShader shader;
 
     public ShapeBlurView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -136,6 +137,7 @@ public class ShapeBlurView extends View {
 
             a.recycle();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         mBitmapPaint = new Paint();
 //        mBitmapPaint.setStyle(Paint.Style.FILL);
@@ -146,6 +148,8 @@ public class ShapeBlurView extends View {
         mBorderPaint.setAntiAlias(true);
         mBorderPaint.setColor(mBorderColor.getColorForState(getState(), DEFAULT_BORDER_COLOR));
         mBorderPaint.setStrokeWidth(mBorderWidth);
+
+        matrix = new Matrix();
     }
 
     private void initCornerData(float cornerRadiusOverride) {
@@ -401,6 +405,12 @@ public class ShapeBlurView extends View {
             mBlurredBitmap.recycle();
             mBlurredBitmap = null;
         }
+        if (matrix != null) {
+            matrix = null;
+        }
+        if (shader != null) {
+            shader = null;
+        }
     }
 
     protected void release() {
@@ -462,6 +472,7 @@ public class ShapeBlurView extends View {
     }
 
     protected void blur(Bitmap bitmapToBlur, Bitmap blurredBitmap) {
+        shader = new BitmapShader(blurredBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         mBlurImpl.blur(bitmapToBlur, blurredBitmap);
     }
 
@@ -627,8 +638,9 @@ public class ShapeBlurView extends View {
             mRectFDst.bottom = getHeight();
             mBitmapPaint.reset();
             mBitmapPaint.setAntiAlias(true);
-            BitmapShader shader = new BitmapShader(blurBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-            Matrix matrix = new Matrix();
+            if (shader == null) {
+                shader = new BitmapShader(blurBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            }
             matrix.postScale(mRectFDst.width() / blurBitmap.getWidth(), mRectFDst.height() / blurBitmap.getHeight());
             shader.setLocalMatrix(matrix);
             mBitmapPaint.setShader(shader);
@@ -662,8 +674,9 @@ public class ShapeBlurView extends View {
             mRectSrc.bottom = blurBitmap.getHeight();
             mBitmapPaint.reset();
             mBitmapPaint.setAntiAlias(true);
-            BitmapShader shader = new BitmapShader(blurBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-            Matrix matrix = new Matrix();
+            if (shader == null) {
+                shader = new BitmapShader(blurBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            }
             matrix.postScale(mRectFDst.width() / mRectSrc.width(), mRectFDst.height() / mRectSrc.height());
             shader.setLocalMatrix(matrix);
             mBitmapPaint.setShader(shader);
