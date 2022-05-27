@@ -42,7 +42,7 @@ import net.center.blurview.impl.SupportLibraryBlurImpl;
  * the view you want to blur and it doesn't have to be in the same ViewGroup
  */
 public class ShapeBlurView extends View {
-    private static Context mContext;
+    private Context mContext;
 
     /**
      * default 4
@@ -411,6 +411,7 @@ public class ShapeBlurView extends View {
         if (shader != null) {
             shader = null;
         }
+        mContext=null;
     }
 
     protected void release() {
@@ -933,7 +934,7 @@ public class ShapeBlurView extends View {
          * @return
          */
         public Builder setBorderColor(@ColorRes int color) {
-            return setBorderColor(ColorStateList.valueOf(ContextCompat.getColor(ShapeBlurView.mContext, color)));
+            return setBorderColor(ColorStateList.valueOf(ContextCompat.getColor(mContext, color)));
         }
 
 //        public Builder setBorderColor(@ColorInt int color) {
@@ -963,8 +964,8 @@ public class ShapeBlurView extends View {
      *
      * @return
      */
-    public static Builder build() {
-        return new Builder(mContext);
+    public static Builder build(Context context) {
+        return new Builder(context);
     }
 
 }
