@@ -79,7 +79,7 @@ blur_border_color:边框线条颜色
 blur_mode:样式，rectangle：矩形；circle：圆形；oval：椭圆
 ```
 
-### (3)代码中对熟悉进行设置
+### (3)代码中对属性进行设置
 
 ```
         blurview?.refreshView(
