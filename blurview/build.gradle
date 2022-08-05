@@ -20,7 +20,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.centerzx'//插件id，格式：com.gitee/github.用户名
                 artifactId = 'ShapeBlurView'//插件名称
-                version = '1.0.0'//版本号
+                version = '1.0.2'//版本号
                 //引用使用格式：implementation 'com.github.centerzx:ShapeBlurView:1.0.0'
             }
         }
