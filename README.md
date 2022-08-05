@@ -32,7 +32,7 @@
 
 2、在需要使用的gradle文件添加依赖：
 ```
-implementation 'com.github.centerzx:ShapeBlurView:1.0.2'
+implementation 'com.github.centerzx:ShapeBlurView:1.0.4'
 implementation 'androidx.appcompat:appcompat:***'
 ```
 
@@ -107,4 +107,4 @@ blur_mode:样式，rectangle：矩形；circle：圆形；oval：椭圆
 
 高斯模糊效果参考`RealtimeBlurView`库，感谢：[RealtimeBlurView](https://github.com/mmin18/RealtimeBlurView/)
 
-项目库如有不足和错误的地方，欢迎大家讨论指正！
+项目库如有不足和错误的地方，欢迎大家讨论指正！觉得不错的话，感谢Star下！
