@@ -22,13 +22,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
-import androidx.annotation.DimenRes;
-import androidx.annotation.FloatRange;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-
 import net.center.blurview.enu.BlurCorner;
 import net.center.blurview.enu.BlurMode;
 import net.center.blurview.impl.AndroidStockBlurImpl;
@@ -36,6 +29,13 @@ import net.center.blurview.impl.AndroidXBlurImpl;
 import net.center.blurview.impl.BlurImpl;
 import net.center.blurview.impl.EmptyBlurImpl;
 import net.center.blurview.impl.SupportLibraryBlurImpl;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.FloatRange;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 /**
  * A realtime blurring overlay (like iOS UIVisualEffectView). Just put it above
@@ -149,7 +149,7 @@ public class ShapeBlurView extends View {
         mBorderPaint.setColor(mBorderColor.getColorForState(getState(), DEFAULT_BORDER_COLOR));
         mBorderPaint.setStrokeWidth(mBorderWidth);
 
-        matrix = new Matrix();
+//        matrix = new Matrix();
     }
 
     private void initCornerData(float cornerRadiusOverride) {
@@ -411,7 +411,7 @@ public class ShapeBlurView extends View {
         if (shader != null) {
             shader = null;
         }
-        mContext=null;
+        mContext = null;
     }
 
     protected void release() {
@@ -642,6 +642,9 @@ public class ShapeBlurView extends View {
             if (shader == null) {
                 shader = new BitmapShader(blurBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             }
+            if (matrix == null) {
+                matrix = new Matrix();
+            }
             matrix.postScale(mRectFDst.width() / blurBitmap.getWidth(), mRectFDst.height() / blurBitmap.getHeight());
             shader.setLocalMatrix(matrix);
             mBitmapPaint.setShader(shader);
@@ -677,6 +680,9 @@ public class ShapeBlurView extends View {
             mBitmapPaint.setAntiAlias(true);
             if (shader == null) {
                 shader = new BitmapShader(blurBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            }
+            if (matrix == null) {
+                matrix = new Matrix();
             }
             matrix.postScale(mRectFDst.width() / mRectSrc.width(), mRectFDst.height() / mRectSrc.height());
             shader.setLocalMatrix(matrix);
