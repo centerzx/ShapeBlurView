@@ -32,7 +32,7 @@
 
 2、在需要使用的gradle文件添加依赖：
 ```
-implementation 'com.github.centerzx:ShapeBlurView:1.0.4'
+implementation 'com.github.centerzx:ShapeBlurView:1.0.5'
 implementation 'androidx.appcompat:appcompat:***'
 ```
 

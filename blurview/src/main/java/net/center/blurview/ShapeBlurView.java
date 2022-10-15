@@ -97,7 +97,7 @@ public class ShapeBlurView extends View {
     private final Paint mBorderPaint;
     private float mBorderWidth = 0;
     private ColorStateList mBorderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
-    private Matrix matrix;
+    private Matrix matrix = new Matrix();
     private BitmapShader shader;
 
     public ShapeBlurView(Context context, AttributeSet attrs) {
@@ -644,8 +644,8 @@ public class ShapeBlurView extends View {
             }
             if (matrix == null) {
                 matrix = new Matrix();
+                matrix.postScale(mRectFDst.width() / blurBitmap.getWidth(), mRectFDst.height() / blurBitmap.getHeight());
             }
-            matrix.postScale(mRectFDst.width() / blurBitmap.getWidth(), mRectFDst.height() / blurBitmap.getHeight());
             shader.setLocalMatrix(matrix);
             mBitmapPaint.setShader(shader);
             canvas.drawOval(mRectFDst, mBitmapPaint);
@@ -683,8 +683,8 @@ public class ShapeBlurView extends View {
             }
             if (matrix == null) {
                 matrix = new Matrix();
+                matrix.postScale(mRectFDst.width() / mRectSrc.width(), mRectFDst.height() / mRectSrc.height());
             }
-            matrix.postScale(mRectFDst.width() / mRectSrc.width(), mRectFDst.height() / mRectSrc.height());
             shader.setLocalMatrix(matrix);
             mBitmapPaint.setShader(shader);
             //前面Scale，故判断以哪一个来取中心点和半径

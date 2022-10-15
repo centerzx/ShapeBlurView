@@ -58,6 +58,7 @@
                 app:blur_border_color="@color/purple_500"
                 app:blur_border_width="1dp"
                 app:blur_mode="oval"
+                app:blur_overlay_color="#80008000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/blurview1" />
