@@ -58,7 +58,7 @@ public class ShapeBlurView extends View {
     private float mBlurRadius;
     public static final int DEFAULT_BORDER_COLOR = Color.WHITE;
 
-    private final BlurImpl mBlurImpl;
+    private BlurImpl mBlurImpl;
     private boolean mDirty;
     private Bitmap mBitmapToBlur, mBlurredBitmap;
     private Canvas mBlurringCanvas;
@@ -80,7 +80,7 @@ public class ShapeBlurView extends View {
     private static int BLUR_IMPL;
 
     private int blurMode = BlurMode.MODE_RECTANGLE;
-    private final Paint mBitmapPaint;
+    private Paint mBitmapPaint;
     //圆形 相关
     private float cx = 0, cy = 0, cRadius = 0;
 
@@ -94,62 +94,105 @@ public class ShapeBlurView extends View {
     private static final float DEFAULT_BORDER_WIDTH = 0f;
 
     private final RectF mBorderRect = new RectF();
-    private final Paint mBorderPaint;
+    private Paint mBorderPaint;
     private float mBorderWidth = 0;
     private ColorStateList mBorderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
     private Matrix matrix = new Matrix();
     private BitmapShader shader;
 
+    public static class Config {
+        public float blurRadius = 25.0f;
+        public float downSampleFactor = 4f;
+        public int overlayColor = 0x000000;
+
+        public float cornerRadiusOverride = -1;
+        public float cornerTopLeft = -1;
+        public float cornerTopRight = -1;
+        public float cornerBottomRight = -1;
+        public float cornerBottomLeft = -1;
+
+        public int blurMode = BlurMode.MODE_RECTANGLE;
+
+        public float borderWidth = DEFAULT_BORDER_WIDTH;
+        public ColorStateList borderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
+    }
+
+    public ShapeBlurView(Context context, Config config) {
+        super(context);
+        mContext = context;
+        mBlurImpl = getBlurImpl();
+
+        initConfig(config);
+
+
+    }
+
     public ShapeBlurView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        // provide your own by override getBlurImpl()
         mBlurImpl = getBlurImpl();
+
+        Config config = new Config();
         try {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ShapeBlurView);
-            mBlurRadius = a.getDimension(R.styleable.ShapeBlurView_blur_radius,
+            config.blurRadius = a.getDimension(R.styleable.ShapeBlurView_blur_radius,
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, context.getResources().getDisplayMetrics()));
-            mDownSampleFactor = a.getFloat(R.styleable.ShapeBlurView_blur_down_sample, 4);
-            mOverlayColor = a.getColor(R.styleable.ShapeBlurView_blur_overlay_color, 0x000000);
+            config.downSampleFactor = a.getFloat(R.styleable.ShapeBlurView_blur_down_sample, 4);
+            config.overlayColor = a.getColor(R.styleable.ShapeBlurView_blur_overlay_color, 0x000000);
 
-            float cornerRadiusOverride =
+            config.cornerRadiusOverride =
                     a.getDimensionPixelSize(R.styleable.ShapeBlurView_blur_corner_radius, -1);
-            mCornerRadii[BlurCorner.TOP_LEFT] =
+            config.cornerTopLeft =
                     a.getDimensionPixelSize(R.styleable.ShapeBlurView_blur_corner_radius_top_left, -1);
-            mCornerRadii[BlurCorner.TOP_RIGHT] =
+            config.cornerTopRight =
                     a.getDimensionPixelSize(R.styleable.ShapeBlurView_blur_corner_radius_top_right, -1);
-            mCornerRadii[BlurCorner.BOTTOM_RIGHT] =
+            config.cornerBottomRight =
                     a.getDimensionPixelSize(R.styleable.ShapeBlurView_blur_corner_radius_bottom_right, -1);
-            mCornerRadii[BlurCorner.BOTTOM_LEFT] =
+            config.cornerBottomLeft =
                     a.getDimensionPixelSize(R.styleable.ShapeBlurView_blur_corner_radius_bottom_left, -1);
-            initCornerData(cornerRadiusOverride);
-            blurMode = a.getInt(R.styleable.ShapeBlurView_blur_mode, BlurMode.MODE_RECTANGLE);
+            config.blurMode = a.getInt(R.styleable.ShapeBlurView_blur_mode, BlurMode.MODE_RECTANGLE);
 
-            mBorderWidth = a.getDimensionPixelSize(R.styleable.ShapeBlurView_blur_border_width, -1);
-            if (mBorderWidth < 0) {
-                mBorderWidth = DEFAULT_BORDER_WIDTH;
-            }
-            mBorderColor = a.getColorStateList(R.styleable.ShapeBlurView_blur_border_color);
-            if (mBorderColor == null) {
-                mBorderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
-            }
-
+            config.borderWidth = a.getDimensionPixelSize(R.styleable.ShapeBlurView_blur_border_width, -1);
+            config.borderColor = a.getColorStateList(R.styleable.ShapeBlurView_blur_border_color);
 
             a.recycle();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        initConfig(config);
+    }
+
+    private void initConfig(Config config) {
+        mBlurRadius = config.blurRadius;
+        mDownSampleFactor = config.downSampleFactor;
+        mOverlayColor = config.overlayColor;
+
+        mCornerRadii[BlurCorner.TOP_LEFT] = config.cornerTopLeft;
+        mCornerRadii[BlurCorner.TOP_RIGHT] = config.cornerTopRight;
+        mCornerRadii[BlurCorner.BOTTOM_RIGHT] = config.cornerBottomRight;
+        mCornerRadii[BlurCorner.BOTTOM_LEFT] = config.cornerBottomLeft;
+        initCornerData(config.cornerRadiusOverride);
+
+        blurMode = config.blurMode;
+        mBorderWidth = config.borderWidth;
+        if (mBorderWidth == -1) {
+            mBorderWidth = DEFAULT_BORDER_WIDTH;
+        }
+
+        mBorderColor = config.borderColor;
+        if (mBorderColor == null) {
+            mBorderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
+        }
+
+
         mBitmapPaint = new Paint();
 //        mBitmapPaint.setStyle(Paint.Style.FILL);
         mBitmapPaint.setAntiAlias(true);
-
         mBorderPaint = new Paint();
         mBorderPaint.setStyle(Paint.Style.STROKE);
         mBorderPaint.setAntiAlias(true);
         mBorderPaint.setColor(mBorderColor.getColorForState(getState(), DEFAULT_BORDER_COLOR));
         mBorderPaint.setStrokeWidth(mBorderWidth);
-
-//        matrix = new Matrix();
     }
 
     private void initCornerData(float cornerRadiusOverride) {

@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-
     id 'maven-publish'//用来推送aar到jitpack
     id 'pl.allegro.tech.build.axion-release' version '1.13.6'//用来发行aar版本的插件
 }
@@ -51,7 +50,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        minSdk 19
+        minSdk 21
         targetSdk 31
 
         consumerProguardFiles "consumer-rules.pro"
@@ -70,8 +69,22 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.0.3'
+    }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
+    implementation 'androidx.core:core-ktx:1.7.0'
     compileOnly 'androidx.appcompat:appcompat:1.4.1'
+
+    implementation("androidx.compose.ui:ui:1.1.0")
+    implementation("androidx.compose.material:material:1.1.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.1.0")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.1.0")
 }
